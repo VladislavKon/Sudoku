@@ -1,0 +1,116 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <title>Sudoku</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    @{Session["Time"] = DateTime.Now;
+}
+    <script type="text/javascript">
+        function init() {
+            sec = 0;
+            setInterval(tick, 1000);
+        }
+
+        function tick() {
+            sec++;
+            document.getElementById("timer").
+                childNodes[0].nodeValue = sec;
+        }
+    </script>
+</head>
+
+<body onload="init()">    
+    <div class="main">
+        <h1 class="title">Судоку</h1>
+        <div class="title">Секундомер</div>
+        <div id="timer" class="title">0</div>
+        <div class="top">
+            <table align="center" border="2" width="400px">
+                <tr>
+                    <th>№</th>
+                    <th>Имя игрока</th>
+                    <th>Время</th>
+                </tr>
+
+                @foreach (var item in ViewBag.Top)
+                {
+                    <tr>
+                        <td class="tabletop">@item.Id</td>
+                        <td class="tabletop">@item.Name</td>
+                        <td class="tabletop">@item.Time.ToString(@"hh\:mm\:ss")</td>
+                        <td class="tabletop"><a href="/Home/LoadBoard/@item.Id"> Посмотреть решение </a></td>
+                    </tr>
+                }
+                    
+                </table>
+        </div>
+        <form action="/Home/End" method="post">
+            <table align="center" border="5">
+                @{int index = 0; }
+                @for (int i = 0; i < 9; i++)
+                {
+                    <tr>
+                        @for (int j = 0; j < 9; j++)
+                        {
+
+                            if (ViewBag.Board.StartSquares[index].Value > 0)
+                            {
+                                <td class="square" align="center"><input class="inputdis" type="number" name="Squares" readonly value="@ViewBag.Board.Squares[index].Value"></td>
+                            }
+                            else
+                            {
+                                <td class="square" align="center">
+                                    <input required name="Squares" type="number" list="Values" class="input" max="9" />
+                                    <style>
+                                        input::-webkit-calendar-picker-indicator {
+                                            opacity: 0;
+                                            width: 5px;
+                                        }
+
+                                        input[type='number'] {
+                                            -moz-appearance: textfield;
+                                        }
+
+                                        input::-webkit-outer-spin-button,
+                                        input::-webkit-inner-spin-button {
+                                            -webkit-appearance: none;
+                                        }
+                                    </style>
+                                    <datalist class="select" id="Values">
+                                        input::-webkit-calendar-picker-indicator {
+                                        display: none;
+                                        }
+                                        <option value=""></option>
+                                        <option value="1"></option>
+                                        <option value="2"></option>
+                                        <option value="3"></option>
+                                        <option value="4"></option>
+                                        <option value="5"></option>
+                                        <option value="6"></option>
+                                        <option value="7"></option>
+                                        <option value="8"></option>
+                                        <option value="9"></option>
+                                    </datalist>
+                                </td>
+                            }
+                            index++;
+                        }
+                    </tr>
+                }
+            </table>
+            <input type="submit" class="restart" value="Закончить" />
+        </form>
+        <div class="message" align="center">@Session["message"]</div>
+        <input class="restart" type="button" value="Начать заново" onclick="window.location.reload(true);" />
+    </div>    
+    
+</body>
+
+</html>

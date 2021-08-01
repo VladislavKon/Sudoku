@@ -1,0 +1,17 @@
+﻿@{
+    Layout = null;
+}
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <title>WriteName</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+</head>
+<h2 class="title">Ваш результат @Session["Result"]</h2>
+<body>
+    <form action="WriteName" method="post">
+        <div class="title"><input required name="name" class="restart" />Введите имя</div>
+        <button class="restart" type="submit">Отправить</button>
+    </form>
+</body>
+

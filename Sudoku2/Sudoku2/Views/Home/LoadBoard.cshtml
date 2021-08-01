@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <title>LoadBoard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body onload="init()">   
+     <h1 class="title">Судоку игрока @ViewBag.Name</h1>        
+     <div>
+         <table align="center" border="5">
+             @{int index = 0; }
+             @for (int i = 0; i < 9; i++)
+             {
+                 <tr>
+                     @for (int j = 0; j < 9; j++)
+                     {
+                         <td class="square" align="center"><input class="inputdis" type="number" name="Squares" readonly value="@ViewBag.SolvedBoard[index]"></td>
+
+                         index++;
+                     }
+                 </tr>
+             }
+         </table>
+         <input type="button" class="restart" value="Назад к игре" onClick='location.href="/Home/Index"'>
+     </div>    
+</body>
+</html>
