@@ -131,10 +131,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BoardDbInitializer.cs" />
-    <Compile Include="Models\Board.cs" />
     <Compile Include="Models\GameResult.cs" />
-    <Compile Include="Models\SolverBoard.cs" />
-    <Compile Include="Models\Square.cs" />
+    <Compile Include="Models\Solver.cs" />
     <Compile Include="Models\SudokuContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

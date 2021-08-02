@@ -60,9 +60,9 @@
                         @for (int j = 0; j < 9; j++)
                         {
 
-                            if (Array.IndexOf(ViewBag.index,index)!=-1)
+                            if (ViewBag.Board.StartSquares[index].Value > 0)
                             {
-                                <td class="square" align="center"><input class="inputdis" type="number" name="Squares" readonly value="@ViewBag.board[index++]"></td>                                
+                                <td class="square" align="center"><input class="inputdis" type="number" name="Squares" readonly value="@ViewBag.Board.Squares[index].Value"></td>
                             }
                             else
                             {
@@ -99,9 +99,8 @@
                                         <option value="9"></option>
                                     </datalist>
                                 </td>
-                                index++;
                             }
-
+                            index++;
                         }
                     </tr>
                 }

@@ -13,22 +13,23 @@ namespace Sudoku2.Controllers
         SudokuContext db = new SudokuContext();        
         public ActionResult Index()
         {
-            Board board = new Board();           
-            Session["ArraySquares"] = board.ArraySquares;            
-            ViewBag.Board = board;
+            Solver solver = new Solver();
+            ViewBag.index = solver.GetRandom();
+            ViewBag.board = solver.GetBoard();
+            Session["ArraySquares"] = solver.GetBoard();
             var dbResults = db.Results.OrderBy(a => a.Time);
             ViewBag.Top = dbResults;
             return View();
         }
         public ActionResult LoadBoard(int id)
         {
-            List<int> des;
+            int[] des;
             var dbResults = db.Results.OrderBy(a => a.Time);
             foreach (var item in dbResults)
             {
                 if (item.Id==id)
                 {
-                    des = JsonConvert.DeserializeObject<List<int>>(item.Squares);
+                    des = JsonConvert.DeserializeObject<int[]>(item.Squares);
                     ViewBag.SolvedBoard = des;
                     ViewBag.Name = item.Name;
                     break;
@@ -44,11 +45,11 @@ namespace Sudoku2.Controllers
         }
 
         [HttpPost]
-        public ActionResult End(List<int> Squares)
+        public ActionResult End(int[] Squares)
         {
-            string str=Squares.ToString();            
             Session["Result"] = DateTime.Now - (DateTime)Session["Time"];
-            if (Squares.SequenceEqual((List<int>)Session["ArraySquares"]))
+            string str=Squares.ToString();   
+            if (Squares.SequenceEqual((int[])Session["ArraySquares"]))
             {
                 Session["message"] = "";
                 return Redirect("/Home/WriteName");                
@@ -58,7 +59,7 @@ namespace Sudoku2.Controllers
         }        
         public ActionResult WriteName(string name)
         {
-            string stringSquares= JsonConvert.SerializeObject((List<int>)Session["ArraySquares"]);            
+            string stringSquares= JsonConvert.SerializeObject((int[])Session["ArraySquares"]);            
             GameResult gameResult = new GameResult() { Name = name, Squares = stringSquares, Time = (TimeSpan)Session["Result"] };
             Session["Name"] = name;
             db.Results.Add(gameResult);
