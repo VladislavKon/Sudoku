@@ -15,8 +15,7 @@ namespace Sudoku2.Controllers
         {
             Solver solver = new Solver();
             ViewBag.index = solver.GetRandom();
-            ViewBag.board = solver.GetBoard();
-            Session["ArraySquares"] = solver.GetBoard();
+            ViewBag.board = solver.GetBoard();            
             var dbResults = db.Results.OrderBy(a => a.Time);
             ViewBag.Top = dbResults;
             return View();
@@ -48,7 +47,7 @@ namespace Sudoku2.Controllers
         public ActionResult End(int[] Squares)
         {
             Session["Result"] = DateTime.Now - (DateTime)Session["Time"];
-            string str=Squares.ToString();
+            Session["ArraySquares"] = Squares;
             SolveChecker solveChecker = new SolveChecker();            
             if (solveChecker.Check(Squares))
             {
