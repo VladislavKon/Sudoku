@@ -38,8 +38,8 @@ namespace Sudoku2.Models
         private void RandomStartBoard()
         {
             Random random = new Random();
-            int[] TheIndexOfStartSquares = new int[78];
-            for (int i = 0; i < 78; i++)
+            int[] TheIndexOfStartSquares = new int[20];
+            for (int i = 0; i < 20; i++)
             {
                 int value = random.Next(0, 80);
                 if (!TheIndexOfStartSquares.Contains(value))
