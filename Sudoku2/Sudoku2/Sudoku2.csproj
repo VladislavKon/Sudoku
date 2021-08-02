@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="Models\BoardDbInitializer.cs" />
     <Compile Include="Models\GameResult.cs" />
+    <Compile Include="Models\SolveChecker.cs" />
     <Compile Include="Models\Solver.cs" />
     <Compile Include="Models\SudokuContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -48,8 +48,9 @@ namespace Sudoku2.Controllers
         public ActionResult End(int[] Squares)
         {
             Session["Result"] = DateTime.Now - (DateTime)Session["Time"];
-            string str=Squares.ToString();   
-            if (Squares.SequenceEqual((int[])Session["ArraySquares"]))
+            string str=Squares.ToString();
+            SolveChecker solveChecker = new SolveChecker();            
+            if (solveChecker.Check(Squares))
             {
                 Session["message"] = "";
                 return Redirect("/Home/WriteName");                
